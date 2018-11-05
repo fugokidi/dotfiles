@@ -1,0 +1,129 @@
+# remap prefix from C-b to C-a
+unbind C-b
+set-option -g prefix c-a
+
+# Index starts from 1
+set-option -g base-index 1
+
+# Renumber windows when a window is closed
+set-option -g renumber-windows on
+
+# History
+set -g history-limit 102400
+
+# Repeat time limit (ms)
+set -sg repeat-time 500
+
+# 256-color terminal
+set -g default-terminal "screen-256color"
+# set -g default-terminal "xterm-256color"
+
+# Add truecolor support (tmux info | grep Tc)
+set-option -ga terminal-overrides ",xterm-256color:Tc"
+
+# Key binding in the status line (bind-key :)
+set-option -g status-keys emacs
+
+# Mouse
+set-option -g mouse on
+
+# ----------------------------------------------------------------------------
+# window
+# ----------------------------------------------------------------------------
+# Copy-mode
+set-window-option -g mode-keys vi
+
+# ----------------------------------------------------------------------------
+# key bindings
+# ----------------------------------------------------------------------------
+# create new window
+bind c new-window -c "#{pane_current_path}"
+
+# prefix ctrl-a
+bind-key c-a last-window
+
+# prefix a (for nested tmux sessions)
+bind-key a send-prefix
+
+# saner split (steve losh)
+bind v split-window -h -c '#{pane_current_path}'
+bind s split-window -v -c '#{pane_current_path}'
+
+# choose session
+bind S choose-session
+
+# Moving windows
+bind-key -r > swap-window -t :+
+bind-key -r < swap-window -t :-
+
+# Back and forth
+bind-key bspace previous-window
+bind-key space next-window
+
+# Pane-movement
+bind-key h select-pane -L
+bind-key l select-pane -R
+bind-key j select-pane -D
+bind-key k select-pane -U
+bind-key tab select-pane -t :.+
+bind-key btab select-pane -t :.-
+
+# Restore clear screen (C-l)
+bind C-l send-keys 'C-l'
+
+# Synchronize panes
+bind-key * set-window-option synchronize-pane
+
+# Reload ~/.tmux.conf
+bind R source-file ~/.tmux.conf \; display-message "Config Reloaded!"
+
+
+# Scrolling
+set -g terminal-overrides 'xterm*:smcup@:rmcup@'
+
+# copy mode
+unbind [
+bind ` copy-mode
+unbind p
+bind p paste-buffer
+# Setup 'v' to begin selection as in Vim
+bind-key -T copy-mode-vi v send -X begin-selection
+bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xsel -i --clipboard"
+
+# Clear scrollback buffer
+bind-key C-l send-keys C-l \; clear-history
+
+# prefix \ - kill server
+unbind '\'
+bind '\' confirm-before "kill-server"
+
+# rename window
+# don't rename it
+set-option -g allow-rename off
+bind , command-prompt "rename-window '%%'"
+bind > run-shell "tmux rename-window 'shell'"
+bind e run-shell "tmux rename-window 'vim'"
+
+# ----------------------------------------------------------------------------
+# theme
+# ----------------------------------------------------------------------------
+set -g status-bg colour234
+set -g status-fg white
+set -g status-interval 1
+
+set -g pane-border-fg colour245
+set -g pane-active-border-fg colour39
+
+# default window
+set-window-option -g window-status-fg colour243
+set-window-option -g window-status-bg default
+# active window
+set-window-option -g window-status-current-fg white
+set-window-option -g window-status-current-bg default
+
+set -g message-bg colour16
+set -g message-fg colour221
+
+set -g status-right '%R %d %b'
+# toggle status bar display
+bind t set status
