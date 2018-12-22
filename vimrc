@@ -89,6 +89,7 @@ set grepprg=rg\ --vimgrep
 " color
 syntax enable
 set t_Co=256
+set term=screen-256color " required for wsl shell although the color works fine without it in tmux
 
 let g:gruvbox_contrast_dark = 'soft'
 set background=dark
@@ -214,7 +215,7 @@ nnoremap <silent> <Leader>f :Buffers<CR>
 nnoremap <silent> <Leader>l :Files ~/winhome/Dropbox/Log<CR>
 
 " notational-fzf-vim
-let g:nv_search_paths = ['~/winhome/Dropbox/Log']
+let g:nv_search_paths = ['/mnt/c/Users/aexpy/Dropbox/Log']
 nnoremap <silent> <c-l> :NV<CR>
 
 " c++
