@@ -1,5 +1,5 @@
 call plug#begin('~/.local/share/nvim/plugged')
-
+Plug 'mhinz/vim-startify'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf', { 'do': './install --all' }
@@ -16,9 +16,9 @@ augroup nerd_loader
         \|   execute 'autocmd! nerd_loader'
         \| endif
 augroup END
-
 call plug#end()
 
+" Basic settings
 set ttyfast " indicates fast terminal connection
 set laststatus=2 " always show statusline
 set encoding=utf-8
@@ -34,11 +34,12 @@ set incsearch  " incremental searching
 set tabstop=2 " the width of the tab character
 set shiftwidth=2 " the amount of space to be shifted in indentation
 set softtabstop=2 " fine tune the amount of space to be inserted/deleted
-" When at 3 spaces and I hit >>, go to 4, not 5.
 set shiftround " use multiple of shiftwidth
 set expandtab  " use space for tab
 set smarttab
 set noerrorbells
+set visualbell
+set t_vb=
 silent! set ttymouse=xterm2
 set mouse=a                     "Enable mouse mode
 set number                        " show number ruler
@@ -59,7 +60,6 @@ set fileformats=unix,dos,mac " Prefer Unix over Windows over OS 9 formats
 set completeopt=menu,menuone
 set pumheight=10             " Completion window max size
 set lazyredraw " redraw only when the commands are typed
-
 set list " see the difference between tabs and space and trailing blanks
 set listchars=tab:│\ ,trail:•,extends:❯,precedes:❮
 set fillchars+=vert:│
@@ -69,33 +69,23 @@ set diffopt=filler,vertical " start diff mode with vertical split
 set foldlevelstart=99 " no folds closed when starting to edit
 set formatoptions+=1j " don't break a line after a one-letter word and correct comment joining
 set nostartofline " keep the cursor on the same column
-
 set timeoutlen=500
-
 "http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
 set clipboard^=unnamed
 set clipboard^=unnamedplus
-
 " ~/.viminfo needs to be writable and readable
 set viminfo='200
-
 if has('persistent_undo')
   set undofile
   set undodir=~/.cache/vim
 endif
-
 set grepprg=rg\ --vimgrep
-
-" color
 syntax enable
 set t_Co=256
-set term=screen-256color " required for wsl shell although the color works fine without it in tmux
-
 let g:gruvbox_contrast_dark = 'soft'
 set background=dark
 colorscheme gruvbox
-
-" junegunn
+" from junegunn
 function! s:statusline_expr()
   let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
   let ro  = "%{&readonly ? '[RO] ' : ''}"
@@ -107,11 +97,10 @@ function! s:statusline_expr()
   return '[%n] %F %<'.mod.ro.ft.fug.sep.pos.'%*'.pct
 endfunction
 let &statusline = s:statusline_expr()
-
 " proper syntax highlighting for shell scripts
 let g:is_posix = 1
 
-let mapleader=","
+" NAVIGATION
 " :map and :noremap are recursive and non-recursive versions of mappings
 " for example
 " :map j gg
@@ -120,64 +109,71 @@ let mapleader=","
 " j and Q will be mapped to gg and W will be mapped to j because j will not be
 " expanded for non-recursive mappings
 " Ref: https://stackoverflow.com/questions/3776117/what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-mapping
-
-" <leader>n | NERD Tree
-nnoremap <leader>n :NERDTreeToggle<cr>
-
-" ----------------------------------------------------------------------------
-" <tab> / <s-tab> | Circular windows navigation
-" ----------------------------------------------------------------------------
-nnoremap <tab>   <c-w>w
-nnoremap <S-tab> <c-w>W
-
-nnoremap <leader>w :w!<cr>
-nnoremap <silent> <leader>q :q!<CR>
-
+" from junegunn
+nnoremap <tab>   <C-w>w
+nnoremap <S-tab> <C-w>W
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+" from fatih
+nnoremap <leader>o :only<CR>
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
 nnoremap n nzzzv
 nnoremap N Nzzzv
-
 " Same when moving up and down
 noremap <C-d> <C-d>zz
 noremap <C-u> <C-u>zz
-
 " Remap H and L (top, bottom of screen to left and right end of line)
 nnoremap H ^
 nnoremap L $
 vnoremap H ^
 vnoremap L g_
-
-" Act like D and C
-nnoremap Y y$
-
 " moving up and down by function, unfolding current function and fold the rest
 noremap [[  [[zMzvz.
 noremap ]]  ]]zMzvz.
-
-" disable it at the moment
-nnoremap Q <Nop>
-
-vnoremap < <gv
-vnoremap > >gv
-
 " http://vim.wikia.com/wiki/Move_cursor_by_display_lines_when_wrapping
 nnoremap <silent> j gj
 nnoremap <silent> k gk
 vnoremap <silent> j gj
 vnoremap <silent> k gk
 
-" Escaping
-imap jk <Esc>
+" MAPPINGS
+let mapleader=","
+nnoremap <leader>n :NERDTreeToggle<cr>
 
-" word count in tex
+" Save and Quit
+inoremap <silent> <C-s> <C-o>:execute("wall \| nohlsearch")<cr>
+nnoremap <silent> <C-s> :execute("wall \| nohlsearch")<cr>
+inoremap <C-q> <C-o>:wqall!<cr>
+nnoremap <C-q> :wqall!<cr>
+nnoremap <leader>q :q!<cr>
+nnoremap <leader>w :w!<cr>
+nnoremap \q :nohlsearch<cr>:call clearmatches()<cr>
+
+nnoremap <silent> <F5> :source $MYVIMRC<CR>
+
+" yank a line, act like D and C
+nnoremap Y y$
+" disable it at the moment
+nnoremap Q <Nop>
+
+vnoremap < <gv
+vnoremap > >gv
+
+" Escaping
+inoremap jk <esc>
+cnoremap jk <C-c>
+vnoremap <C-q> <esc>
+
+" word count in tex, don't remember from where I stole it.
 function! WC()
   let filename = expand("%")
   let cmd = "detex " . filename . " | wc -w | perl -pe 'chomp; s/ +//;'"
   let result = system(cmd)
   echo result . " words"
 endfunction
-
 
 " fzf
 if has('nvim') || has('gui_running')
@@ -215,13 +211,9 @@ nnoremap <silent> <Leader>f :Buffers<CR>
 nnoremap <silent> <Leader>l :Files ~/winhome/Dropbox/Log<CR>
 
 " notational-fzf-vim
-let g:nv_search_paths = ['/mnt/c/Users/aexpy/Dropbox/Log']
+let g:nv_search_paths = ['/mnt/c/Users/aexpy/Dropbox/Log', '/mnt/c/Users/aexpy/Dropbox/notes']
+let g:nv_create_note_window = 'edit'
 nnoremap <silent> <c-l> :NV<CR>
 
-" c++
-" map <F9> :w<cr>:!g++ % -g && (ulimit -c unlimited; ./a.out) <cr>
-" map <F10> :w<cr>:!g++ % -g && (ulimit -c unlimited; ./a.out < ~/input.txt) <cr>
-" map <F12> :!gdb ./a.out -c core <CR>
-
-" :MDY 06/14/18
-command! MDY :norm! i<C-R>=strftime("%m/%d/%y")<CR>
+" :Date
+command! Date :norm! i<C-R>=strftime("%y/%m/%d")<CR>
