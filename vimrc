@@ -1,5 +1,4 @@
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'mhinz/vim-startify'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf', { 'do': './install --all' }
@@ -208,10 +207,10 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 " nnoremap <silent> <Leader><Leader> :Files<CR>
 nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
 nnoremap <silent> <Leader>f :Buffers<CR>
-nnoremap <silent> <Leader>l :Files ~/winhome/Dropbox/Log<CR>
+nnoremap <silent> <Leader>l :Files ~/Dropbox/Log<CR>
 
 " notational-fzf-vim
-let g:nv_search_paths = ['/mnt/c/Users/aexpy/Dropbox/Log', '/mnt/c/Users/aexpy/Dropbox/notes']
+let g:nv_search_paths = ['~/Dropbox/Log']
 let g:nv_create_note_window = 'edit'
 nnoremap <silent> <c-l> :NV<CR>
 
