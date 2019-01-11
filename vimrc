@@ -1,4 +1,4 @@
-call plug#begin('~/.local/share/nvim/plugged')
+call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf', { 'do': './install --all' }
@@ -15,6 +15,10 @@ augroup nerd_loader
         \|   execute 'autocmd! nerd_loader'
         \| endif
 augroup END
+Plug 'Raimondi/delimitMate'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'ervandew/supertab'
 call plug#end()
 
 " Basic settings
@@ -213,6 +217,25 @@ nnoremap <silent> <Leader>l :Files ~/Dropbox/Log<CR>
 let g:nv_search_paths = ['~/Dropbox/Log']
 let g:nv_create_note_window = 'edit'
 nnoremap <silent> <c-l> :NV<CR>
+
+" delimitMate
+let g:delimitMate_expand_cr = 1
+let g:delimitMate_expand_space = 1
+let g:delimitMate_smart_quotes = 1
+let g:delimitMate_expand_inside_quotes = 0
+let g:delimitMate_smart_matchpairs = '^\%(\w\|\$\)'
+
+imap <expr> <CR> pumvisible() ? "\<c-y>" : "<Plug>delimitMateCR"
+
+" ultisnips
+let g:SuperTabDefaultCompletionType = "context"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "~/.vim/UltiSnips"]
+let g:UltiSnipsEditSplit="vertical"
+nnoremap <leader>ue :UltiSnipsEdit<cr>
 
 " :Date
 command! Date :norm! i<C-R>=strftime("%y/%m/%d")<CR>
