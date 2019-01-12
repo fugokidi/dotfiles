@@ -15,8 +15,7 @@ set -g history-limit 102400
 set -sg repeat-time 500
 
 # 256-color terminal
-# set -g default-terminal "screen-256color"
-set -g default-terminal "xterm-256color"
+set -g default-terminal "screen-256color"
 
 # Add truecolor support (tmux info | grep Tc)
 set-option -ga terminal-overrides ",xterm-256color:Tc"
@@ -25,7 +24,7 @@ set-option -ga terminal-overrides ",xterm-256color:Tc"
 set-option -g status-keys emacs
 
 # Mouse
-set-option -g mouse off
+set-option -g mouse on
 
 # ----------------------------------------------------------------------------
 # window
@@ -75,8 +74,7 @@ bind C-l send-keys 'C-l'
 bind-key * set-window-option synchronize-pane
 
 # Reload ~/.tmux.conf
-bind R source-file ~/.tmux.conf \; display-message "Config Reloaded!"
-
+bind r source-file ~/.tmux.conf \; display-message "Config Reloaded!"
 
 # Scrolling
 set -g terminal-overrides 'xterm*:smcup@:rmcup@'
@@ -97,12 +95,20 @@ bind-key C-l send-keys C-l \; clear-history
 unbind '\'
 bind '\' confirm-before "kill-server"
 
+# kill pane
+bind-key x kill-pane
+
 # rename window
 # don't rename it
 set-option -g allow-rename off
 bind , command-prompt "rename-window '%%'"
 bind > run-shell "tmux rename-window 'shell'"
 bind e run-shell "tmux rename-window 'vim'"
+
+
+# focus events enabled for terminals that support them
+# require for vim-tmux-focus-events
+set -g focus-events on
 
 # ----------------------------------------------------------------------------
 # theme

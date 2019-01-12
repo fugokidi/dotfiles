@@ -19,6 +19,12 @@ Plug 'Raimondi/delimitMate'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'ervandew/supertab'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'roxma/vim-tmux-clipboard'
+Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'ekalinin/Dockerfile.vim', {'for' : 'Dockerfile'}
 call plug#end()
 
 " Basic settings
@@ -143,7 +149,13 @@ vnoremap <silent> j gj
 vnoremap <silent> k gk
 
 " MAPPINGS
-let mapleader=","
+let mapleader = ","
+let maplocalleader = ","
+augroup vimrc
+  autocmd!
+augroup END
+
+" nerdtree
 nnoremap <leader>n :NERDTreeToggle<cr>
 
 " Save and Quit
@@ -213,6 +225,10 @@ nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\
 nnoremap <silent> <Leader>f :Buffers<CR>
 nnoremap <silent> <Leader>l :Files ~/Dropbox/Log<CR>
 
+" search
+nmap <C-p> :History<cr>
+imap <C-p> <esc>:<C-u>History<cr>
+
 " notational-fzf-vim
 let g:nv_search_paths = ['~/Dropbox/Log']
 let g:nv_create_note_window = 'edit'
@@ -237,5 +253,26 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", "~/.vim/UltiSnips"]
 let g:UltiSnipsEditSplit="vertical"
 nnoremap <leader>ue :UltiSnipsEdit<cr>
 
+" vim-markdown
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_fenced_languages = ['python=python', 'viml=vim', 'bash=sh']
+let g:vim_markdown_new_list_item_indent = 2
+" useful for github wiki, [link text] (link-url), ge command
+let g:vim_markdown_no_extensions_in_markdown = 1
+let g:vim_markdown_math = 1
+
+
 " :Date
 command! Date :norm! i<C-R>=strftime("%y/%m/%d")<CR>
+
+augroup vimrc
+  autocmd BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
+  autocmd BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
+  autocmd BufNewFile,BufRead *.vim setlocal expandtab shiftwidth=2 tabstop=2
+  autocmd BufNewFile,BufRead *.sh setlocal expandtab shiftwidth=2 tabstop=2
+  autocmd BufNewFile,BufRead *.html setlocal noet ts=4 sw=4
+  autocmd BufNewFile,BufRead *.md setlocal noet ts=4 sw=4
+  autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 
+  autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
+augroup END
