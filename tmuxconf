@@ -86,7 +86,7 @@ unbind p
 bind p paste-buffer
 # Setup 'v' to begin selection as in Vim
 bind-key -T copy-mode-vi v send -X begin-selection
-bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xsel -i --clipboard"
+bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xsel -i --clipboard"
 
 # Clear scrollback buffer
 bind-key C-l send-keys C-l \; clear-history

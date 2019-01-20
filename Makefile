@@ -11,6 +11,7 @@ all:
 	[ -f ~/.config/nvim/init.vim ] || ln -s $(PWD)/vimrc ~/.config/nvim/init.vim
 	[ -f ~/.vimrc ] || ln -s $(PWD)/vimrc ~/.vimrc
 	[ -f ~/.tmux.conf ] || ln -s $(PWD)/tmuxconf ~/.tmux.conf
+	[ -f ~/.zshrc ] || ln -s $(PWD)/zshrc ~/.zshrc
 
 clean:
 	rm -f ~/.vimrc

@@ -25,6 +25,7 @@ Plug 'roxma/vim-tmux-clipboard'
 Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'ekalinin/Dockerfile.vim', {'for' : 'Dockerfile'}
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 " Basic settings
@@ -89,7 +90,7 @@ if has('persistent_undo')
   set undodir=~/.cache/vim
 endif
 set grepprg=rg\ --vimgrep
-syntax enable
+" syntax enable
 set t_Co=256
 let g:gruvbox_contrast_dark = 'soft'
 set background=dark
@@ -161,8 +162,6 @@ nnoremap <leader>n :NERDTreeToggle<cr>
 " Save and Quit
 inoremap <silent> <C-s> <C-o>:execute("wall \| nohlsearch")<cr>
 nnoremap <silent> <C-s> :execute("wall \| nohlsearch")<cr>
-inoremap <C-q> <C-o>:wqall!<cr>
-nnoremap <C-q> :wqall!<cr>
 nnoremap <leader>q :q!<cr>
 nnoremap <leader>w :w!<cr>
 nnoremap \q :nohlsearch<cr>:call clearmatches()<cr>
@@ -180,7 +179,7 @@ vnoremap > >gv
 " Escaping
 inoremap jk <esc>
 cnoremap jk <C-c>
-vnoremap <C-q> <esc>
+vnoremap <C-c> <esc>
 
 " word count in tex, don't remember from where I stole it.
 function! WC()
