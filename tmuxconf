@@ -15,7 +15,7 @@ set -g history-limit 102400
 set -sg repeat-time 500
 
 # 256-color terminal
-set -g default-terminal "screen-256color"
+set -g default-terminal "xterm-256color"
 
 # Add truecolor support (tmux info | grep Tc)
 set-option -ga terminal-overrides ",xterm-256color:Tc"

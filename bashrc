@@ -87,11 +87,6 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -125,7 +120,7 @@ stty -ixon -ixoff # turn off CTRL-S
 # --hidden: Search hidden files and folders
 # --follow: Follow symlinks
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+#export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
 export HISTTIMEFORMAT="%d/%m/%y %T "
 
@@ -140,6 +135,11 @@ source /home/imdad/.local/bin/virtualenvwrapper.sh
 
 alias desk="cd ~/Desktop/"
 alias ..="cd ../"
+alias P='cd ~/Projects'
+alias ll='ls -al'
+alias ls='ls --color=auto'
+alias work='(sleep 52m && notify-send -u critical "Break") & disown'
+alias rest='(sleep 17m && notify-send -u critical "Start over") & disown'
 # alias ipext='curl -s http://checkip.dyndns.org/ | grep -o '[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*.[0-9]*''
 # alias rot13="tr '[A-Za-z]' '[N-ZA-Mn-za-m]'"
 # alias psgrep='ps aux |grep -v grep |grep -i'

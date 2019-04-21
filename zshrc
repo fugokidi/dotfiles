@@ -1,12 +1,24 @@
 alias ..='cd ..'
+alias P='cd ~/Projects'
 alias ll='ls -al'
 alias ls='ls --color=auto'
+alias work='(sleep 52m && notify-send -u critical "Break") & disown'
+alias rest='(sleep 17m && notify-send -u critical "Start over") & disown'
 
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 export EDITOR="vim"
 export LSCOLORS=cxBxhxDxfxhxhxhxhxcxcx
 export CLICOLOR=1
+
+# support colors in less from fatih
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
 
 # Set up the prompt from fatih
 autoload -U colors && colors
@@ -54,8 +66,8 @@ setopt histignorealldups sharehistory
 bindkey -e
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=10000
+SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
 # Use modern completion system
@@ -86,3 +98,17 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # Plugins
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Ruby Gems
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"
+
+# Android Platform Tools
+export PATH="/opt/platform-tools_r28.0.1-linux/platform-tools:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Anaconda
+source /home/imdad/anaconda3/etc/profile.d/conda.sh
+
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64"

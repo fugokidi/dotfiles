@@ -3,7 +3,6 @@ Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'alok/notational-fzf-vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 augroup nerd_loader
@@ -26,6 +25,8 @@ Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'ekalinin/Dockerfile.vim', {'for' : 'Dockerfile'}
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-eunuch'
+Plug 'lervag/vimtex'
 call plug#end()
 
 " Basic settings
@@ -90,11 +91,13 @@ if has('persistent_undo')
   set undodir=~/.cache/vim
 endif
 set grepprg=rg\ --vimgrep
-" syntax enable
+syntax enable
 set t_Co=256
-let g:gruvbox_contrast_dark = 'soft'
 set background=dark
 colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'soft'
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
 " from junegunn
 function! s:statusline_expr()
   let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
@@ -162,7 +165,7 @@ nnoremap <leader>n :NERDTreeToggle<cr>
 " Save and Quit
 inoremap <silent> <C-s> <C-o>:execute("wall \| nohlsearch")<cr>
 nnoremap <silent> <C-s> :execute("wall \| nohlsearch")<cr>
-nnoremap <leader>q :q!<cr>
+nnoremap <leader>q :q<cr>
 nnoremap <leader>w :w!<cr>
 nnoremap \q :nohlsearch<cr>:call clearmatches()<cr>
 
@@ -214,24 +217,21 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
 \ 'header': ['fg', 'Comment'] }
 
-command! -bang -nargs=? -complete=dir Files
-\ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+" command! -bang -nargs=? -complete=dir Files
+" \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 
-" nnoremap <silent> <Leader><Leader> :Files<CR>
 nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
 nnoremap <silent> <Leader>f :Buffers<CR>
-nnoremap <silent> <Leader>l :Files ~/Dropbox/Log<CR>
 
 " search
 nmap <C-p> :History<cr>
 imap <C-p> <esc>:<C-u>History<cr>
 
-" notational-fzf-vim
-let g:nv_search_paths = ['~/Dropbox/Log']
-let g:nv_create_note_window = 'edit'
-nnoremap <silent> <c-l> :NV<CR>
+command! -bang -nargs=* Notes call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --color "always" '.shellescape(<q-args>).' ~/Dropbox/notes ~/Dropbox/UltiSnips| tr -d "\017"', 1, <bang>0)
+nnoremap <silent> <c-l> :Notes<CR>
+command! -nargs=1 Note :exe "e! " . fnameescape("~/Dropbox/notes/<args>.md")
 
 " delimitMate
 let g:delimitMate_expand_cr = 1
@@ -250,7 +250,9 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "~/.vim/UltiSnips"]
 let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsListSnippets="<c-k>"
 nnoremap <leader>ue :UltiSnipsEdit<cr>
+
 
 " vim-markdown
 let g:vim_markdown_folding_disabled = 1
@@ -262,16 +264,18 @@ let g:vim_markdown_no_extensions_in_markdown = 1
 let g:vim_markdown_math = 1
 
 
-" :Date
-command! Date :norm! i<C-R>=strftime("%y/%m/%d")<CR>
+" insert date
+nmap <F3> i<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
+imap <F3> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
+cmap <F3> <C-R>=strftime("%Y-%m-%d-")<CR>
 
 augroup vimrc
   autocmd BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
   autocmd BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
   autocmd BufNewFile,BufRead *.vim setlocal expandtab shiftwidth=2 tabstop=2
   autocmd BufNewFile,BufRead *.sh setlocal expandtab shiftwidth=2 tabstop=2
-  autocmd BufNewFile,BufRead *.html setlocal noet ts=4 sw=4
-  autocmd BufNewFile,BufRead *.md setlocal noet ts=4 sw=4
+  autocmd BufNewFile,BufRead *.html setlocal noet ts=2 sw=2
+  autocmd BufNewFile,BufRead *.md setlocal noet ts=4 sw=4 textwidth=80 fo+=t colorcolumn=80
   autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 
   autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
 augroup END
