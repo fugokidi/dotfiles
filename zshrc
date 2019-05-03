@@ -1,5 +1,6 @@
 alias ..='cd ..'
 alias P='cd ~/Projects'
+alias desk='cd ~/Desktop'
 alias ll='ls -al'
 alias ls='ls --color=auto'
 alias work='(sleep 52m && notify-send -u critical "Break") & disown'
@@ -109,6 +110,9 @@ export PATH="/opt/platform-tools_r28.0.1-linux/platform-tools:$PATH"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Anaconda
-source /home/imdad/anaconda3/etc/profile.d/conda.sh
+source /home/imdad/miniconda3/etc/profile.d/conda.sh
 
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64"
+# cuda config
+export PATH=/usr/local/cuda-10.0/bin:/usr/local/cuda-10.0/NsightCompute-1.0${PATH:+:${PATH}}
+
+export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}

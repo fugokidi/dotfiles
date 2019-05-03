@@ -224,6 +224,7 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 
 nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
 nnoremap <silent> <Leader>f :Buffers<CR>
+nnoremap <silent> <Leader><space> :Find<cr>
 
 " search
 nmap <C-p> :History<cr>
