@@ -1,5 +1,7 @@
 alias ..='cd ..'
 alias P='cd ~/Projects'
+alias S='cd ~/Scratch'
+alias A='cd ~/Study/Adversarial'
 alias desk='cd ~/Desktop'
 alias ll='ls -al'
 alias ls='ls --color=auto'

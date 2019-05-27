@@ -27,6 +27,8 @@ Plug 'ekalinin/Dockerfile.vim', {'for' : 'Dockerfile'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-eunuch'
 Plug 'lervag/vimtex'
+Plug 'w0rp/ale'
+
 call plug#end()
 
 " Basic settings
@@ -280,3 +282,22 @@ augroup vimrc
   autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 
   autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
 augroup END
+
+
+" ale
+" install those packages
+" pip install -U flake8 flake8-import-order autopep8 black isort
+let g:ale_linters = {
+    \ 'python': ['flake8'],
+    \ }
+
+let g:ale_fixers = {
+    \ 'python': ['autopep8', 'black', 'isort'],
+    \ }
+let g:ale_lint_delay = 1000
+
+nmap ]a <Plug>(ale_next_wrap)
+nmap [a <Plug>(ale_previous_wrap)
+
+nmap <silent> <Leader>x <Plug>(ale_fix)
+let g:ale_fix_on_save = 1
