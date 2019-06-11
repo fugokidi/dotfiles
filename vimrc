@@ -279,6 +279,7 @@ augroup vimrc
   autocmd BufNewFile,BufRead *.sh setlocal expandtab shiftwidth=2 tabstop=2
   autocmd BufNewFile,BufRead *.html setlocal noet ts=2 sw=2
   autocmd BufNewFile,BufRead *.md setlocal noet ts=4 sw=4 textwidth=80 fo+=t colorcolumn=80
+  autocmd BufNewFile,BufRead *.py setlocal colorcolumn=80
   autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 
   autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
 augroup END
@@ -291,8 +292,9 @@ let g:ale_linters = {
     \ 'python': ['flake8'],
     \ }
 
+" \ 'python': ['autopep8', 'black', 'isort'],
 let g:ale_fixers = {
-    \ 'python': ['autopep8', 'black', 'isort'],
+    \ 'python': ['autopep8', 'isort'],
     \ }
 let g:ale_lint_delay = 1000
 

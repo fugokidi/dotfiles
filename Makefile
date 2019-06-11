@@ -12,10 +12,13 @@ all:
 	[ -f ~/.vimrc ] || ln -s $(PWD)/vimrc ~/.vimrc
 	[ -f ~/.tmux.conf ] || ln -s $(PWD)/tmuxconf ~/.tmux.conf
 	[ -f ~/.zshrc ] || ln -s $(PWD)/zshrc ~/.zshrc
+	[ -f ~/.gitconfig ] || ln -s $(PWD)/gitconfig ~/.gitconfig
 
 clean:
 	rm -f ~/.vimrc
 	rm -f ~/.config/nvim/init.vim
 	rm -f ~/.tmux.conf
+	rm -f ~/.zshrc
+	rm -f ~/.gitconfig
 
 .PHONY: all
