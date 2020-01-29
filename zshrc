@@ -1,13 +1,12 @@
 alias ..='cd ..'
-alias P='cd ~/Projects'
-alias S='cd ~/Scratch'
-alias A='cd ~/Study/Adversarial'
 alias desk='cd ~/Desktop'
+alias project='cd ~/Projects'
 alias dropbox='cd ~/Dropbox'
 alias ll='ls -al'
 alias ls='ls --color=auto'
-alias work='(sleep 52m && notify-send -u critical "Break") & disown'
-alias rest='(sleep 17m && notify-send -u critical "Start over") & disown'
+# alias work='sleep 52m && notify-send -u critical "Break"'
+# alias rest='sleep 17m && notify-send -u critical "Start over"'
+alias pomo='sleep 20m && notify-send -u critical "Break"'
 
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
