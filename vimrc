@@ -232,8 +232,8 @@ nnoremap <silent> <Leader><space> :Find<cr>
 nmap <C-p> :History<cr>
 imap <C-p> <esc>:<C-u>History<cr>
 
-command! -bang -nargs=* Notes call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --color "always" '.shellescape(<q-args>).' ~/Dropbox/notes ~/Dropbox/UltiSnips| tr -d "\017"', 1, <bang>0)
-nnoremap <silent> <c-l> :Notes<CR>
+command! -bang -nargs=* Notes call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --color "always" '.shellescape(<q-args>).' ~/Dropbox/slipbox ~/Dropbox/UltiSnips| tr -d "\017"', 1, <bang>0)
+nnoremap <silent> <c-n> :Notes<CR>
 command! -nargs=1 Note :exe "e! " . fnameescape("~/Dropbox/notes/<args>.md")
 
 " delimitMate
