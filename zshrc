@@ -118,3 +118,7 @@ source /home/imdad/miniconda3/etc/profile.d/conda.sh
 export PATH=/usr/local/cuda-10.0/bin:/usr/local/cuda-10.0/NsightCompute-1.0${PATH:+:${PATH}}
 
 export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+function backupdb() {
+  rsync -aAXv ~/Dropbox/ /media/imdad/Backup/dropbox/
+}
