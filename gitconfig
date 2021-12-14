@@ -1,0 +1,7 @@
+[user]
+	email = fugokidi@gmail.com
+	name = Imdad
+[alias]
+  pub = !git branch -D master && git checkout -b master && git filter-branch --subdirectory-filter _site/ -f && git checkout source && git push --all origin
+[core]
+	excludesfile = /Users/maung/.gitignore_global
