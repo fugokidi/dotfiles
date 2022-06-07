@@ -13,6 +13,9 @@ set-option -g default-shell /usr/local/bin/fish
 # toogle last window by hitting again C-a
 bind-key C-a last-window
 
+# prefix a (for nested tmux sessions)
+bind-key a send-prefix
+
 # Back and forth
 bind-key bspace previous-window
 bind-key space next-window

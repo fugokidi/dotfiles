@@ -311,3 +311,14 @@ nmap <silent> <Leader>x <Plug>(ale_fix)
 
 nmap <silent> <Leader>tl :ALEToggle<cr>
 map <leader>td <Plug>TaskList
+
+let g:vimtex_compiler_latexmk = {
+    \ 'options' : [
+    \   '-pdf',
+    \   '-shell-escape',
+    \   '-verbose',
+    \   '-file-line-error',
+    \   '-synctex=1',
+    \   '-interaction=nonstopmode',
+    \ ],
+    \}
