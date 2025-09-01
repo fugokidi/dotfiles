@@ -30,8 +30,8 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'ekalinin/Dockerfile.vim', {'for' : 'Dockerfile'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-eunuch'
-Plug 'lervag/vimtex'
-Plug 'w0rp/ale'
+" Plug 'lervag/vimtex'
+" Plug 'w0rp/ale'
 Plug 'vim-scripts/TaskList.vim'
 
 Plug 'othree/html5.vim'
@@ -134,8 +134,8 @@ let g:is_posix = 1
 " expanded for non-recursive mappings
 " Ref: https://stackoverflow.com/questions/3776117/what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-mapping
 " from junegunn
-nnoremap <tab>   <C-w>w
-nnoremap <S-tab> <C-w>W
+" nnoremap <tab>   <C-w>w
+" nnoremap <S-tab> <C-w>W
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
@@ -313,16 +313,16 @@ nmap [a <Plug>(ale_previous_wrap)
 nmap <silent> <Leader>x <Plug>(ale_fix)
 " let g:ale_fix_on_save = 1
 
-nmap <silent> <Leader>tl :ALEToggle<cr>
+" nmap <silent> <Leader>tl :ALEToggle<cr>
 map <leader>td <Plug>TaskList
 
-let g:vimtex_compiler_latexmk = {
-    \ 'options' : [
-    \   '-pdf',
-    \   '-shell-escape',
-    \   '-verbose',
-    \   '-file-line-error',
-    \   '-synctex=1',
-    \   '-interaction=nonstopmode',
-    \ ],
-    \}
+" let g:vimtex_compiler_latexmk = {
+"     \ 'options' : [
+"     \   '-pdf',
+"     \   '-shell-escape',
+"     \   '-verbose',
+"     \   '-file-line-error',
+"     \   '-synctex=1',
+"     \   '-interaction=nonstopmode',
+"     \ ],
+"     \}

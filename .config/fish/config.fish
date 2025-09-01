@@ -2,6 +2,11 @@
 set -gxp PATH /opt/homebrew/bin
 set -gx EDITOR vim
 set -gx FZF_CTRL_T_COMMAND vim
+# tmux in the server does not work without this
+set -gx TERM xterm-256color
+
+# shell integration, if we don't set it, working directory features won't work
+set -gx GHOSTTY_SHELL_INTEGRATION_XDG_DIR /Applications/Ghostty.app/Contents/Resources/ghostty/shell-integration
 
 # git prompt settings
 set -g __fish_git_prompt_show_informative_status 1
@@ -15,7 +20,7 @@ set -g __fish_git_prompt_char_conflictedstate "+"
 set -g __fish_git_prompt_color_dirtystate yellow
 set -g __fish_git_prompt_color_cleanstate green --bold
 set -g __fish_git_prompt_color_invalidstate red
-set -g __fish_git_prompt_color_branch cyan --dim --italics
+set -g __fish_git_prompt_color_branch cyan --dim
 
 # don't show any greetings
 set fish_greeting ""
